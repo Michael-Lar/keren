@@ -96,11 +96,23 @@ export const siteConfig = {
           })),
         },
         {
-          id: "spaces",
-          title: "Spaces",
+          id: "architecture",
+          title: "Architecture",
+          parent: "Spaces",
           coverImage: "/photos/spaces/01.jpg",
           photos: Array.from({ length: 81 }, (_, i) => ({
             src: `/photos/spaces/${String(i + 1).padStart(2, "0")}.jpg`,
+            caption: "",
+            aspect: "4:3" as const,
+          })),
+        },
+        {
+          id: "nature-film",
+          title: "Nature",
+          parent: "Spaces",
+          coverImage: "/photos/spaces/15.jpg",
+          photos: [15, 25, 35, 45, 55, 65, 75].map((n) => ({
+            src: `/photos/spaces/${String(n).padStart(2, "0")}.jpg`,
             caption: "",
             aspect: "4:3" as const,
           })),
@@ -193,6 +205,8 @@ export type Shoot = {
   title: string;
   coverImage: string;
   photos: Photo[];
+  /** Optional parent category name — used for subheadings (e.g. "Spaces"). */
+  parent?: string;
 };
 
 export type Group = {

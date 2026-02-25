@@ -150,13 +150,63 @@ export default function GroupPageContent({ group }: { group: Group }) {
             : "Shot digitally. Live music, portraits, nature, and ongoing projects."}
         </motion.p>
 
-        {/* 2-col grid of shoot tiles */}
-        <div className="group-shoots-grid">
-          {group.shoots.map((shoot, index) => (
-            <ShootTile key={shoot.id} shoot={shoot} index={index} />
-          ))}
-        </div>
+        {/* Shoot tiles, grouped by parent subheading when present */}
+        {renderShootSections(group.shoots)}
       </div>
     </main>
   );
+}
+
+/**
+ * Groups shoots: standalone shoots render directly, shoots sharing a
+ * `parent` get a subheading above their cluster (e.g. "Spaces" →
+ * Architecture + Nature).
+ */
+function renderShootSections(shoots: Shoot[]) {
+  const sections: { key: string; label: string | null; items: Shoot[] }[] = [];
+  let idx = 0;
+
+  for (const shoot of shoots) {
+    const parentName = (shoot as { parent?: string }).parent ?? null;
+    if (parentName) {
+      const existing = sections.find((s) => s.label === parentName);
+      if (existing) {
+        existing.items.push(shoot);
+      } else {
+        sections.push({ key: parentName, label: parentName, items: [shoot] });
+      }
+    } else {
+      sections.push({ key: shoot.id, label: null, items: [shoot] });
+    }
+  }
+
+  return sections.map((section) => (
+    <div key={section.key} style={{ marginBottom: "3rem" }}>
+      {section.label && (
+        <motion.h2
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.6 }}
+          style={{
+            fontFamily: "var(--font-cormorant), Georgia, serif",
+            fontSize: "clamp(1.1rem, 2vw, 1.5rem)",
+            fontWeight: 400,
+            fontStyle: "italic",
+            letterSpacing: "0.08em",
+            color: "var(--silver)",
+            marginBottom: "1.5rem",
+          }}
+        >
+          {section.label}
+        </motion.h2>
+      )}
+      <div className="group-shoots-grid">
+        {section.items.map((shoot) => {
+          const i = idx++;
+          return <ShootTile key={shoot.id} shoot={shoot} index={i} />;
+        })}
+      </div>
+    </div>
+  ));
 }
