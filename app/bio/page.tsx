@@ -3,18 +3,16 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { siteConfig } from "@/content/portfolio.config";
-import InstagramEmbed from "@/components/InstagramEmbed";
-
 const IG_HANDLE = siteConfig.contact.instagram;
 const IG_URL = `https://instagram.com/${IG_HANDLE}`;
 
-const igPostUrls = [
-  "https://www.instagram.com/p/DDPtPaIRFGN/",
-  "https://www.instagram.com/p/C38gy9FJnLp/",
-  "https://www.instagram.com/p/DJepCAWxA36/",
-  "https://www.instagram.com/p/DHHiWH1yNri/",
-  "https://www.instagram.com/p/DG_tn0pS40Q/",
-  "https://www.instagram.com/p/DG4Aq5eRUZu/",
+const igPreviewImages = [
+  "/photos/film-24-25/01.jpg",
+  "/photos/film-24-25/09.jpg",
+  "/photos/spaces/05.jpg",
+  "/photos/film-24-25/18.jpg",
+  "/photos/spaces/30.jpg",
+  "/photos/film-24-25/38.jpg",
 ];
 
 export default function BioPage() {
@@ -232,7 +230,42 @@ export default function BioPage() {
             </a>
           </div>
 
-          <InstagramEmbed postUrls={igPostUrls} />
+          <a
+            href={IG_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ display: "block", cursor: "none" }}
+          >
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(3, 1fr)",
+                gap: "3px",
+              }}
+            >
+              {igPreviewImages.map((src, i) => (
+                <div
+                  key={i}
+                  style={{
+                    position: "relative",
+                    aspectRatio: "1 / 1",
+                    overflow: "hidden",
+                    backgroundColor: "var(--charcoal)",
+                  }}
+                  className="hover-zoom-container"
+                >
+                  <Image
+                    src={src}
+                    alt=""
+                    fill
+                    sizes="(max-width: 768px) 33vw, 200px"
+                    style={{ objectFit: "cover" }}
+                    quality={70}
+                  />
+                </div>
+              ))}
+            </div>
+          </a>
         </motion.div>
       </div>
     </main>
