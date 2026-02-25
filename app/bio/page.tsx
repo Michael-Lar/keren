@@ -3,17 +3,18 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { siteConfig } from "@/content/portfolio.config";
+import InstagramEmbed from "@/components/InstagramEmbed";
 
 const IG_HANDLE = siteConfig.contact.instagram;
 const IG_URL = `https://instagram.com/${IG_HANDLE}`;
 
-const igPreviewImages = [
-  "/photos/film-24-25/01.jpg",
-  "/photos/film-24-25/09.jpg",
-  "/photos/spaces/05.jpg",
-  "/photos/film-24-25/18.jpg",
-  "/photos/spaces/30.jpg",
-  "/photos/film-24-25/38.jpg",
+const igPostUrls = [
+  "https://www.instagram.com/p/DDPtPaIRFGN/",
+  "https://www.instagram.com/p/C38gy9FJnLp/",
+  "https://www.instagram.com/p/DJepCAWxA36/",
+  "https://www.instagram.com/p/DHHiWH1yNri/",
+  "https://www.instagram.com/p/DG_tn0pS40Q/",
+  "https://www.instagram.com/p/DG4Aq5eRUZu/",
 ];
 
 export default function BioPage() {
@@ -163,17 +164,15 @@ export default function BioPage() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           style={{ marginTop: "6rem" }}
         >
-          {/* Section header */}
           <div
             style={{
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              marginBottom: "1.5rem",
+              marginBottom: "2rem",
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-              {/* Instagram icon */}
               <svg
                 width="20"
                 height="20"
@@ -233,43 +232,7 @@ export default function BioPage() {
             </a>
           </div>
 
-          {/* 3x2 grid of preview images, each linking to IG */}
-          <a
-            href={IG_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ display: "block", cursor: "none" }}
-          >
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-                gap: "3px",
-              }}
-            >
-              {igPreviewImages.map((src, i) => (
-                <div
-                  key={i}
-                  style={{
-                    position: "relative",
-                    aspectRatio: "1 / 1",
-                    overflow: "hidden",
-                    backgroundColor: "var(--charcoal)",
-                  }}
-                  className="hover-zoom-container"
-                >
-                  <Image
-                    src={src}
-                    alt=""
-                    fill
-                    sizes="(max-width: 768px) 33vw, 200px"
-                    style={{ objectFit: "cover" }}
-                    quality={70}
-                  />
-                </div>
-              ))}
-            </div>
-          </a>
+          <InstagramEmbed postUrls={igPostUrls} />
         </motion.div>
       </div>
     </main>

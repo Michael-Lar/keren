@@ -223,3 +223,42 @@ img {
     gap: 4rem;
   }
 }
+
+/* ============================================================
+   INSTAGRAM EMBEDS — responsive grid on bio page
+   ============================================================ */
+
+.ig-embed-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .ig-embed-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .ig-embed-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.ig-embed-item {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.ig-embed-item .instagram-media {
+  margin: 0 !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+.ig-embed-item iframe {
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
