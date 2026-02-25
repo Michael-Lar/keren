@@ -1,17 +1,15 @@
 import Hero from "@/components/Hero";
-import GalleryGrid from "@/components/GalleryGrid";
 
 /**
  * Landing Page — /
  *
- * Hero: ~60vh crossfading slideshow (or video if configured)
- * Below: gallery grid of shoot tiles with Analog/Digital/All tabs
+ * Full-screen hero slideshow only. No scrolling.
+ * Name is in the nav (top-left), links in nav (top-right).
  */
 export default function HomePage() {
   return (
     <main>
       <Hero />
-      <GalleryGrid />
     </main>
   );
 }

@@ -33,7 +33,7 @@ export default function ShootPageClient({ group, shoot }: Props) {
           style={{ marginBottom: "3rem" }}
         >
           <Link
-            href="/#work"
+            href={`/${group.id}`}
             style={{
               fontFamily: "var(--font-dm-mono), monospace",
               fontSize: "11px",

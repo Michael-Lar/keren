@@ -144,11 +144,20 @@ img {
 }
 
 /* ============================================================
-   GALLERY — homepage stacked full-width shoot tiles
+   GROUP SHOOTS GRID — /analog and /digital pages
+   2 cols desktop, 1 mobile, generous gap like marionbergin.com
    ============================================================ */
 
-.gallery-container {
-  padding: 4rem 0 6rem;
+.group-shoots-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+@media (min-width: 768px) {
+  .group-shoots-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* ============================================================

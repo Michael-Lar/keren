@@ -6,25 +6,24 @@ import { AnimatePresence, motion } from "framer-motion";
 import { siteConfig } from "@/content/portfolio.config";
 
 /**
- * Nav — Fixed transparent navigation present on every page.
+ * Nav — Fixed transparent navigation on every page.
  *
- * Left: Photographer name → always links to /
- * Right: WORK · BIO · CONTACT links
- *
- * Mobile: hamburger → full-screen overlay with large serif links
+ * Left: Name → links home
+ * Right: ANALOG · DIGITAL · BIO · CONTACT
+ * Mobile: hamburger → full-screen overlay
  */
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navLinks = [
-    { href: "/#work", label: "WORK" },
+    { href: "/analog", label: "ANALOG" },
+    { href: "/digital", label: "DIGITAL" },
     { href: "/bio", label: "BIO" },
     { href: "/contact", label: "CONTACT" },
   ];
 
   return (
     <>
-      {/* ─── Fixed Nav Bar ─────────────────────────────────────── */}
       <nav
         style={{
           position: "fixed",
@@ -37,7 +36,6 @@ export default function Nav() {
         }}
         className="flex items-start justify-between px-6 py-5 md:px-10 md:py-7"
       >
-        {/* Photographer name — always links home */}
         <Link
           href="/"
           className="text-[11px] tracking-[0.22em] uppercase text-[var(--white)] opacity-90 hover:opacity-100 transition-opacity duration-200"
@@ -50,7 +48,7 @@ export default function Nav() {
           {siteConfig.name}
         </Link>
 
-        {/* Desktop nav links — hidden on mobile */}
+        {/* Desktop nav links */}
         <div className="hidden md:flex items-center gap-7">
           {navLinks.map((link) => (
             <Link
@@ -94,7 +92,7 @@ export default function Nav() {
         </button>
       </nav>
 
-      {/* ─── Mobile Full-Screen Overlay ────────────────────────── */}
+      {/* Mobile overlay */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -105,7 +103,6 @@ export default function Nav() {
             className="fixed inset-0 z-[999] flex flex-col"
             style={{ backgroundColor: "var(--black)" }}
           >
-            {/* Name top-left inside overlay */}
             <div className="flex justify-between items-start px-6 py-5">
               <Link
                 href="/"
@@ -115,7 +112,6 @@ export default function Nav() {
               >
                 {siteConfig.name}
               </Link>
-              {/* Close button */}
               <button
                 onClick={() => setMenuOpen(false)}
                 className="text-[var(--silver)] text-2xl leading-none"
@@ -126,7 +122,6 @@ export default function Nav() {
               </button>
             </div>
 
-            {/* Large centered links */}
             <div className="flex-1 flex flex-col items-center justify-center gap-10">
               {navLinks.map((link, i) => (
                 <motion.div
