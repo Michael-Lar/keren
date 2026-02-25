@@ -42,8 +42,8 @@ export const siteConfig = {
    * Instagram handle without the @.
    */
   contact: {
-    email: "keren@example.com",
-    instagram: "kerenlifschitz",
+    email: "keren.lifschitz3@gmail.com",
+    instagram: "k.sdrkl",
   },
 
   /**
