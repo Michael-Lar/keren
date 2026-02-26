@@ -32,7 +32,7 @@ export default function Nav() {
           right: 0,
           zIndex: 1000,
           background:
-            "linear-gradient(to bottom, rgba(8,8,8,0.6) 0%, rgba(8,8,8,0.25) 70%, transparent 100%)",
+            "linear-gradient(to bottom, rgba(17,17,17,0.6) 0%, rgba(17,17,17,0.25) 70%, transparent 100%)",
         }}
         className="flex items-start justify-between px-6 py-5 md:px-10 md:py-7"
       >

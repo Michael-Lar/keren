@@ -68,7 +68,7 @@ function SquareTile({
               right: 0,
               height: "50%",
               background:
-                "linear-gradient(to top, rgba(8,8,8,0.85) 0%, rgba(8,8,8,0.3) 60%, transparent 100%)",
+                "linear-gradient(to top, rgba(17,17,17,0.85) 0%, rgba(17,17,17,0.3) 60%, transparent 100%)",
               pointerEvents: "none",
             }}
           />

@@ -4,18 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { siteConfig, type Shoot } from "@/content/portfolio.config";
+import { siteConfig } from "@/content/portfolio.config";
 
-const tileAspect: Record<string, string> = {
-  "live-music": "3 / 2",
-  "portraits-digital": "2 / 3",
-  nature: "3 / 2",
-  projects: "3 / 2",
-};
+interface TileProps {
+  title: string;
+  href: string;
+  coverImage: string;
+  index: number;
+  style?: React.CSSProperties;
+}
 
-function DigitalTile({ shoot, index }: { shoot: Shoot; index: number }) {
+function Tile({ title, href, coverImage, index, style }: TileProps) {
   const [hovered, setHovered] = useState(false);
-  const aspect = tileAspect[shoot.id] || "3 / 2";
 
   return (
     <motion.div
@@ -24,14 +24,15 @@ function DigitalTile({ shoot, index }: { shoot: Shoot; index: number }) {
       viewport={{ once: true, margin: "-60px" }}
       transition={{
         duration: 0.7,
-        delay: (index % 2) * 0.12,
+        delay: index * 0.1,
         ease: "easeOut",
       }}
+      style={style}
     >
       <Link
-        href={`/shoot/${shoot.id}`}
+        href={href}
         className="block"
-        style={{ cursor: "none" }}
+        style={{ cursor: "none", height: "100%" }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
@@ -40,13 +41,13 @@ function DigitalTile({ shoot, index }: { shoot: Shoot; index: number }) {
             position: "relative",
             overflow: "hidden",
             width: "100%",
-            aspectRatio: aspect,
+            height: "100%",
             backgroundColor: "var(--charcoal)",
           }}
         >
           <Image
-            src={shoot.coverImage}
-            alt={shoot.title}
+            src={coverImage}
+            alt={title}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             style={{
@@ -66,7 +67,7 @@ function DigitalTile({ shoot, index }: { shoot: Shoot; index: number }) {
               right: 0,
               height: "50%",
               background:
-                "linear-gradient(to top, rgba(8,8,8,0.85) 0%, rgba(8,8,8,0.3) 60%, transparent 100%)",
+                "linear-gradient(to top, rgba(17,17,17,0.85) 0%, rgba(17,17,17,0.3) 60%, transparent 100%)",
               pointerEvents: "none",
             }}
           />
@@ -92,7 +93,7 @@ function DigitalTile({ shoot, index }: { shoot: Shoot; index: number }) {
                   "0 2px 12px rgba(0,0,0,0.95), 0 0 40px rgba(0,0,0,0.5)",
               }}
             >
-              {shoot.title}
+              {title}
             </h3>
           </div>
         </div>
@@ -103,6 +104,11 @@ function DigitalTile({ shoot, index }: { shoot: Shoot; index: number }) {
 
 export default function DigitalPageContent() {
   const group = siteConfig.groups.find((g) => g.id === "digital")!;
+
+  const liveMusic = group.shoots.find((s) => s.id === "live-music")!;
+  const portraits = group.shoots.find((s) => s.id === "portraits-digital")!;
+  const nature = group.shoots.find((s) => s.id === "nature")!;
+  const projects = group.shoots.find((s) => s.id === "projects")!;
 
   return (
     <main
@@ -135,10 +141,35 @@ export default function DigitalPageContent() {
           Digital
         </motion.h1>
 
-        <div className="digital-grid">
-          {group.shoots.map((shoot, i) => (
-            <DigitalTile key={shoot.id} shoot={shoot} index={i} />
-          ))}
+        <div className="digital-puzzle">
+          <Tile
+            title={liveMusic.title}
+            href={`/shoot/${liveMusic.id}`}
+            coverImage={liveMusic.coverImage}
+            index={0}
+            style={{ gridColumn: 1, gridRow: 1 }}
+          />
+          <Tile
+            title={portraits.title}
+            href={`/shoot/${portraits.id}`}
+            coverImage={portraits.coverImage}
+            index={1}
+            style={{ gridColumn: 2, gridRow: "1 / 3" }}
+          />
+          <Tile
+            title={nature.title}
+            href={`/shoot/${nature.id}`}
+            coverImage={nature.coverImage}
+            index={2}
+            style={{ gridColumn: 1, gridRow: 2 }}
+          />
+          <Tile
+            title={projects.title}
+            href={`/shoot/${projects.id}`}
+            coverImage={projects.coverImage}
+            index={3}
+            style={{ gridColumn: "1 / 3", gridRow: 3 }}
+          />
         </div>
       </div>
     </main>

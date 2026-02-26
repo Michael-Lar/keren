@@ -7,13 +7,13 @@
    ============================================================ */
 
 :root {
-  --black: #080808;
-  --deep: #0f0f0f;
-  --charcoal: #1a1a1a;
-  --mid: #333333;
-  --muted: #555555;
-  --silver: #8a8a8a;
-  --light: #bebebe;
+  --black: #111111;
+  --deep: #181818;
+  --charcoal: #222222;
+  --mid: #3a3a3a;
+  --muted: #5c5c5c;
+  --silver: #909090;
+  --light: #c2c2c2;
   --paper: #e8e2d9;
   --white: #f5f1eb;
   --accent: #9b7b3f;
@@ -173,16 +173,28 @@ img {
   }
 }
 
-/* Digital page — 2×2 grid with slightly larger gaps */
-.digital-grid {
+/* Digital page — puzzle mosaic grid.
+   Portraits (tall 2:3) spans 2 rows on right.
+   Live Music + Nature stack on left. Projects full-width below. */
+.digital-puzzle {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(1rem, 2vw, 1.75rem);
+  grid-auto-rows: auto;
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+}
+
+.digital-puzzle > * {
+  min-height: 250px;
 }
 
 @media (min-width: 768px) {
-  .digital-grid {
+  .digital-puzzle {
     grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr 1fr auto;
+  }
+
+  .digital-puzzle > *:nth-child(4) {
+    aspect-ratio: 3 / 1;
   }
 }
 
