@@ -150,40 +150,40 @@ export const siteConfig = {
           id: "live-music",
           title: "Live Music",
           coverImage: "/photos/film-24-25/30.jpg",
-          photos: [30, 31, 32, 33, 34, 35].map((n, i) => ({
+          photos: [30, 31, 32, 33, 34, 35].map((n) => ({
             src: `/photos/film-24-25/${String(n).padStart(2, "0")}.jpg`,
             caption: "",
-            aspect: (["4:3", "3:4", "4:3", "3:4", "1:1", "4:3"] as const)[i],
+            aspect: "3:4" as const,
           })),
         },
         {
           id: "portraits-digital",
           title: "Portraits",
           coverImage: "/photos/film-24-25/40.jpg",
-          photos: [40, 41, 42, 43, 44].map((n, i) => ({
+          photos: [40, 41, 42, 43, 44].map((n) => ({
             src: `/photos/film-24-25/${String(n).padStart(2, "0")}.jpg`,
             caption: "",
-            aspect: (["3:4", "4:3", "1:1", "3:4", "4:3"] as const)[i],
+            aspect: "3:4" as const,
           })),
         },
         {
           id: "nature",
           title: "Nature",
           coverImage: "/photos/spaces/15.jpg",
-          photos: [15, 25, 35, 45, 55].map((n, i) => ({
+          photos: [15, 25, 35, 45, 55].map((n) => ({
             src: `/photos/spaces/${String(n).padStart(2, "0")}.jpg`,
             caption: "",
-            aspect: (["4:3", "4:3", "4:3", "4:3", "4:3"] as const)[i],
+            aspect: "4:3" as const,
           })),
         },
         {
           id: "projects",
           title: "Projects",
           coverImage: "/photos/spaces/50.jpg",
-          photos: [50, 60, 70].map((n, i) => ({
+          photos: [50, 60, 70].map((n) => ({
             src: `/photos/spaces/${String(n).padStart(2, "0")}.jpg`,
             caption: "",
-            aspect: (["4:3", "4:3", "4:3"] as const)[i],
+            aspect: "3:4" as const,
           })),
         },
       ],
