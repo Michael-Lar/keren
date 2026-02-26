@@ -6,15 +6,6 @@ import { siteConfig } from "@/content/portfolio.config";
 const IG_HANDLE = siteConfig.contact.instagram;
 const IG_URL = `https://instagram.com/${IG_HANDLE}`;
 
-const igPreviewImages = [
-  "/photos/film-24-25/01.jpg",
-  "/photos/film-24-25/09.jpg",
-  "/photos/spaces/05.jpg",
-  "/photos/film-24-25/18.jpg",
-  "/photos/spaces/30.jpg",
-  "/photos/film-24-25/38.jpg",
-];
-
 export default function BioPage() {
   return (
     <main
@@ -154,119 +145,6 @@ export default function BioPage() {
           </motion.div>
         </div>
 
-        {/* ─── Instagram Embed Section ──────────────────────────── */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          style={{ marginTop: "6rem" }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              marginBottom: "2rem",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--silver)"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <rect x="2" y="2" width="20" height="20" rx="5" />
-                <circle cx="12" cy="12" r="5" />
-                <circle cx="17.5" cy="6.5" r="1" fill="var(--silver)" stroke="none" />
-              </svg>
-              <a
-                href={IG_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  fontFamily: "var(--font-dm-mono), monospace",
-                  fontSize: "12px",
-                  letterSpacing: "0.12em",
-                  color: "var(--silver)",
-                  transition: "color 0.2s",
-                }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.color = "var(--white)")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = "var(--silver)")
-                }
-              >
-                @{IG_HANDLE}
-              </a>
-            </div>
-
-            <a
-              href={IG_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                fontFamily: "var(--font-dm-mono), monospace",
-                fontSize: "10px",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: "var(--muted)",
-                transition: "color 0.2s",
-              }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.color = "var(--silver)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.color = "var(--muted)")
-              }
-            >
-              Follow →
-            </a>
-          </div>
-
-          <a
-            href={IG_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ display: "block", cursor: "none" }}
-          >
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-                gap: "3px",
-              }}
-            >
-              {igPreviewImages.map((src, i) => (
-                <div
-                  key={i}
-                  style={{
-                    position: "relative",
-                    aspectRatio: "1 / 1",
-                    overflow: "hidden",
-                    backgroundColor: "var(--charcoal)",
-                  }}
-                  className="hover-zoom-container"
-                >
-                  <Image
-                    src={src}
-                    alt=""
-                    fill
-                    sizes="(max-width: 768px) 33vw, 200px"
-                    style={{ objectFit: "cover" }}
-                    quality={70}
-                  />
-                </div>
-              ))}
-            </div>
-          </a>
-        </motion.div>
       </div>
     </main>
   );
