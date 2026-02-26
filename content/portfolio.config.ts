@@ -79,11 +79,24 @@ export const siteConfig = {
           id: "street",
           title: "Street",
           coverImage: "/photos/film-24-25/02.jpg",
-          photos: [2, 3, 4, 5, 6, 7, 8].map((n) => ({
-            src: `/photos/film-24-25/${String(n).padStart(2, "0")}.jpg`,
-            caption: "",
-            aspect: (["3:4", "4:3", "1:1", "3:4", "4:3", "1:1", "3:4"] as const)[(n - 2) % 7],
-          })),
+          photos: (() => {
+            const nums = [2, 3, 4, 5, 6, 7, 8];
+            const captions = [
+              "New York, NY",
+              "35mm — Kodak Tri-X 400",
+              "Manhattan",
+              "",
+              "Brooklyn",
+              "35mm — Ilford HP5",
+              "Chinatown",
+            ];
+            const aspects = ["3:4", "4:3", "1:1", "3:4", "4:3", "1:1", "3:4"] as const;
+            return nums.map((n, i) => ({
+              src: `/photos/film-24-25/${String(n).padStart(2, "0")}.jpg`,
+              caption: captions[i],
+              aspect: aspects[i],
+            }));
+          })(),
         },
         {
           id: "portraits-film",
