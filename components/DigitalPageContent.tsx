@@ -6,28 +6,26 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { siteConfig, type Shoot } from "@/content/portfolio.config";
 
-const shootLayout: Record<string, { aspect: string; maxWidth?: string }> = {
-  "live-music": { aspect: "3 / 2" },
-  "portraits-digital": { aspect: "2 / 3", maxWidth: "45%" },
-  nature: { aspect: "3 / 2" },
-  projects: { aspect: "3 / 2" },
+const tileAspect: Record<string, string> = {
+  "live-music": "3 / 2",
+  "portraits-digital": "2 / 3",
+  nature: "3 / 2",
+  projects: "3 / 2",
 };
 
 function DigitalTile({ shoot, index }: { shoot: Shoot; index: number }) {
   const [hovered, setHovered] = useState(false);
-  const layout = shootLayout[shoot.id] || { aspect: "3 / 2" };
-  const isVertical = !!layout.maxWidth;
+  const aspect = tileAspect[shoot.id] || "3 / 2";
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.7, delay: index * 0.1, ease: "easeOut" }}
-      style={{
-        maxWidth: layout.maxWidth || "100%",
-        margin: isVertical ? "0 auto" : undefined,
-        width: "100%",
+      transition={{
+        duration: 0.7,
+        delay: (index % 2) * 0.12,
+        ease: "easeOut",
       }}
     >
       <Link
@@ -42,7 +40,7 @@ function DigitalTile({ shoot, index }: { shoot: Shoot; index: number }) {
             position: "relative",
             overflow: "hidden",
             width: "100%",
-            aspectRatio: layout.aspect,
+            aspectRatio: aspect,
             backgroundColor: "var(--charcoal)",
           }}
         >
@@ -50,11 +48,7 @@ function DigitalTile({ shoot, index }: { shoot: Shoot; index: number }) {
             src={shoot.coverImage}
             alt={shoot.title}
             fill
-            sizes={
-              isVertical
-                ? "(max-width: 768px) 100vw, 45vw"
-                : "(max-width: 768px) 100vw, 100vw"
-            }
+            sizes="(max-width: 768px) 100vw, 50vw"
             style={{
               objectFit: "cover",
               transition:
@@ -141,13 +135,7 @@ export default function DigitalPageContent() {
           Digital
         </motion.h1>
 
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "clamp(1.5rem, 3vw, 2.5rem)",
-          }}
-        >
+        <div className="digital-grid">
           {group.shoots.map((shoot, i) => (
             <DigitalTile key={shoot.id} shoot={shoot} index={i} />
           ))}

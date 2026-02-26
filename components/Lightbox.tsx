@@ -300,7 +300,7 @@ export default function Lightbox({ photos, initialIndex, onClose }: LightboxProp
               bottom: "1.25rem",
               left: "4rem",
               fontFamily: "var(--font-dm-mono), monospace",
-              fontSize: "11px",
+              fontSize: "12.5px",
               letterSpacing: "0.03em",
               color: "var(--silver)",
               lineHeight: 1.5,

@@ -173,6 +173,19 @@ img {
   }
 }
 
+/* Digital page — 2×2 grid with slightly larger gaps */
+.digital-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1rem, 2vw, 1.75rem);
+}
+
+@media (min-width: 768px) {
+  .digital-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* ============================================================
    PHOTO GRID — shoot page, CSS columns masonry layout
    Shows each photo at its real aspect ratio without cropping.
