@@ -118,16 +118,6 @@ export const siteConfig = {
           })),
         },
         {
-          id: "film-24-25",
-          title: "Film 24/25",
-          coverImage: "/photos/film-24-25/01.jpg",
-          photos: Array.from({ length: 70 }, (_, i) => ({
-            src: `/photos/film-24-25/${String(i + 1).padStart(2, "0")}.jpg`,
-            caption: "",
-            aspect: (["3:4", "4:3", "1:1", "4:3", "3:4"] as const)[i % 5],
-          })),
-        },
-        {
           id: "still-constructed",
           title: "Still / Constructed",
           coverImage: "/photos/film-24-25/20.jpg",
