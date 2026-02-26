@@ -6,6 +6,7 @@ import Lightbox from "./Lightbox";
 
 interface PhotoGridProps {
   photos: Photo[];
+  wideGap?: boolean;
 }
 
 /**
@@ -15,12 +16,12 @@ interface PhotoGridProps {
  * cropping. Uses CSS columns for a masonry-like flow where mixed sizes
  * pack naturally. Click opens lightbox.
  */
-export default function PhotoGrid({ photos }: PhotoGridProps) {
+export default function PhotoGrid({ photos, wideGap }: PhotoGridProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   return (
     <>
-      <div className="photo-grid-masonry" style={{ padding: "2rem 0 6rem" }}>
+      <div className={`photo-grid-masonry${wideGap ? " wide-gap" : ""}`} style={{ padding: "2rem 0 6rem" }}>
         {photos.map((photo, index) => (
           <div
             key={index}

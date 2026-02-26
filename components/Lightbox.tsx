@@ -236,7 +236,7 @@ export default function Lightbox({ photos, initialIndex, onClose }: LightboxProp
         </button>
       )}
 
-      {/* Main photo + caption — flex-1, centered */}
+      {/* Main photo — flex-1, centered */}
       <div
         onClick={(e) => e.stopPropagation()}
         style={{
@@ -246,6 +246,7 @@ export default function Lightbox({ photos, initialIndex, onClose }: LightboxProp
           justifyContent: "center",
           padding: "5rem 4rem 1rem",
           minHeight: 0,
+          position: "relative",
         }}
         onTouchStart={(e) => setTouchStart(e.touches[0].clientX)}
         onTouchEnd={(e) => {
@@ -287,23 +288,30 @@ export default function Lightbox({ photos, initialIndex, onClose }: LightboxProp
                 display: "block",
               }}
             />
-            {photo.caption && (
-              <p
-                style={{
-                  fontFamily: "var(--font-dm-mono), monospace",
-                  fontSize: "12px",
-                  letterSpacing: "0.04em",
-                  color: "var(--silver)",
-                  marginTop: "0.7rem",
-                  lineHeight: 1.5,
-                  alignSelf: "flex-start",
-                }}
-              >
-                {photo.caption}
-              </p>
-            )}
           </motion.div>
         </AnimatePresence>
+
+        {/* Caption — bottom-left, Vivian Maier style */}
+        {photo.caption && (
+          <p
+            key={`caption-${index}`}
+            style={{
+              position: "absolute",
+              bottom: "1.25rem",
+              left: "4rem",
+              fontFamily: "var(--font-dm-mono), monospace",
+              fontSize: "11px",
+              letterSpacing: "0.03em",
+              color: "var(--silver)",
+              lineHeight: 1.5,
+              maxWidth: "420px",
+              pointerEvents: "none",
+              opacity: 0.85,
+            }}
+          >
+            {photo.caption}
+          </p>
+        )}
       </div>
 
       {/* Thumbnail strip — Vivian Maier style */}

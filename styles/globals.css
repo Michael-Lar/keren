@@ -160,6 +160,19 @@ img {
   }
 }
 
+/* Analog + Spaces pages — 2×2 square grid */
+.analog-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+}
+
+@media (min-width: 768px) {
+  .analog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* ============================================================
    PHOTO GRID — shoot page, CSS columns masonry layout
    Shows each photo at its real aspect ratio without cropping.
@@ -181,6 +194,14 @@ img {
   .photo-grid-masonry {
     column-count: 3;
   }
+}
+
+.photo-grid-masonry.wide-gap {
+  column-gap: 8px;
+}
+
+.photo-grid-masonry.wide-gap .photo-grid-item {
+  margin-bottom: 8px;
 }
 
 .photo-grid-item {

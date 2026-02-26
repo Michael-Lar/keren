@@ -38,9 +38,11 @@ export default function Nav() {
       >
         <Link
           href="/"
-          className="text-[11px] tracking-[0.22em] uppercase text-[var(--white)] opacity-90 hover:opacity-100 transition-opacity duration-200"
+          className="tracking-[0.14em] uppercase text-[var(--white)] opacity-90 hover:opacity-100 transition-opacity duration-200"
           style={{
-            fontFamily: "var(--font-dm-mono), monospace",
+            fontFamily: "var(--font-cormorant), Georgia, serif",
+            fontSize: "clamp(16px, 1.8vw, 20px)",
+            fontWeight: 400,
             textShadow: "0 1px 6px rgba(0,0,0,0.9), 0 0 20px rgba(0,0,0,0.5)",
           }}
           onClick={() => setMenuOpen(false)}
@@ -106,8 +108,12 @@ export default function Nav() {
             <div className="flex justify-between items-start px-6 py-5">
               <Link
                 href="/"
-                className="text-[11px] tracking-[0.22em] uppercase text-[var(--white)] opacity-90"
-                style={{ fontFamily: "var(--font-dm-mono), monospace" }}
+                className="tracking-[0.14em] uppercase text-[var(--white)] opacity-90"
+                style={{
+                  fontFamily: "var(--font-cormorant), Georgia, serif",
+                  fontSize: "18px",
+                  fontWeight: 400,
+                }}
                 onClick={() => setMenuOpen(false)}
               >
                 {siteConfig.name}

@@ -10,10 +10,16 @@ interface Props {
   shoot: Shoot;
 }
 
-/**
- * Client component for the shoot page — header + PhotoGrid.
- */
 export default function ShootPageClient({ group, shoot }: Props) {
+  const isSpaces = (shoot as { parent?: string }).parent === "Spaces";
+  const isDigital = group.id === "digital";
+
+  const backHref = isSpaces ? "/spaces" : `/${group.id}`;
+  const backLabel = isSpaces ? "Spaces" : group.title;
+  const breadcrumb = isSpaces
+    ? `Analog / Spaces / ${shoot.title}`
+    : `${group.title} / ${shoot.title}`;
+
   return (
     <main
       style={{
@@ -33,7 +39,7 @@ export default function ShootPageClient({ group, shoot }: Props) {
           style={{ marginBottom: "3rem" }}
         >
           <Link
-            href={`/${group.id}`}
+            href={backHref}
             style={{
               fontFamily: "var(--font-dm-mono), monospace",
               fontSize: "11px",
@@ -52,7 +58,7 @@ export default function ShootPageClient({ group, shoot }: Props) {
               (e.currentTarget.style.color = "var(--silver)")
             }
           >
-            ← {group.title}
+            ← {backLabel}
           </Link>
         </motion.div>
 
@@ -72,7 +78,7 @@ export default function ShootPageClient({ group, shoot }: Props) {
               marginBottom: "0.75rem",
             }}
           >
-            {group.title} / {shoot.title}
+            {breadcrumb}
           </p>
 
           <h1
@@ -97,11 +103,12 @@ export default function ShootPageClient({ group, shoot }: Props) {
               marginTop: "0.75rem",
             }}
           >
-            {shoot.photos.length} {shoot.photos.length === 1 ? "photo" : "photos"}
+            {shoot.photos.length}{" "}
+            {shoot.photos.length === 1 ? "photo" : "photos"}
           </p>
         </motion.div>
 
-        <PhotoGrid photos={shoot.photos} />
+        <PhotoGrid photos={shoot.photos} wideGap={isDigital} />
       </div>
     </main>
   );
