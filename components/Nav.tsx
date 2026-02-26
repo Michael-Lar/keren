@@ -72,7 +72,6 @@ export default function Nav() {
           className="md:hidden flex flex-col gap-[5px] p-1"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
-          style={{ cursor: "none" }}
         >
           <motion.span
             animate={menuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
@@ -122,7 +121,6 @@ export default function Nav() {
                 onClick={() => setMenuOpen(false)}
                 className="text-[var(--silver)] text-2xl leading-none"
                 aria-label="Close menu"
-                style={{ cursor: "none" }}
               >
                 ×
               </button>

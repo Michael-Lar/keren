@@ -29,7 +29,7 @@ export default function PhotoGrid({ photos, wideGap }: PhotoGridProps) {
             onClick={() => setLightboxIndex(index)}
             data-cursor-hover="true"
             style={{
-              cursor: "none",
+              cursor: "pointer",
               marginBottom: "3px",
               breakInside: "avoid",
               backgroundColor: "var(--charcoal)",

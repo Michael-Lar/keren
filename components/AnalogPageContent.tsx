@@ -33,7 +33,7 @@ function SquareTile({
       <Link
         href={href}
         className="block"
-        style={{ cursor: "none" }}
+
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >

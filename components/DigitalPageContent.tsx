@@ -11,10 +11,18 @@ interface TileProps {
   href: string;
   coverImage: string;
   index: number;
-  style?: React.CSSProperties;
+  aspectRatio?: string;
+  gridStyle?: React.CSSProperties;
 }
 
-function Tile({ title, href, coverImage, index, style }: TileProps) {
+function Tile({
+  title,
+  href,
+  coverImage,
+  index,
+  aspectRatio,
+  gridStyle,
+}: TileProps) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -24,15 +32,15 @@ function Tile({ title, href, coverImage, index, style }: TileProps) {
       viewport={{ once: true, margin: "-60px" }}
       transition={{
         duration: 0.7,
-        delay: index * 0.1,
+        delay: (index % 2) * 0.12,
         ease: "easeOut",
       }}
-      style={style}
+      style={gridStyle}
     >
       <Link
         href={href}
         className="block"
-        style={{ cursor: "none", height: "100%" }}
+        style={{ height: "100%", display: "block" }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
@@ -41,8 +49,10 @@ function Tile({ title, href, coverImage, index, style }: TileProps) {
             position: "relative",
             overflow: "hidden",
             width: "100%",
-            height: "100%",
             backgroundColor: "var(--charcoal)",
+            ...(aspectRatio
+              ? { aspectRatio }
+              : { height: "100%", minHeight: "300px" }),
           }}
         >
           <Image
@@ -142,33 +152,35 @@ export default function DigitalPageContent() {
         </motion.h1>
 
         <div className="digital-puzzle">
+          {/* Row 1: Live Music + Portraits — both 2:3, matching heights */}
           <Tile
             title={liveMusic.title}
             href={`/shoot/${liveMusic.id}`}
             coverImage={liveMusic.coverImage}
             index={0}
-            style={{ gridColumn: 1, gridRow: 1 }}
+            aspectRatio="2 / 3"
           />
           <Tile
             title={portraits.title}
             href={`/shoot/${portraits.id}`}
             coverImage={portraits.coverImage}
             index={1}
-            style={{ gridColumn: 2, gridRow: "1 / 3" }}
+            aspectRatio="2 / 3"
           />
+
+          {/* Row 2: Nature (fills cell) + Projects (2:3, drives row height) */}
           <Tile
             title={nature.title}
             href={`/shoot/${nature.id}`}
             coverImage={nature.coverImage}
             index={2}
-            style={{ gridColumn: 1, gridRow: 2 }}
           />
           <Tile
             title={projects.title}
             href={`/shoot/${projects.id}`}
             coverImage={projects.coverImage}
             index={3}
-            style={{ gridColumn: "1 / 3", gridRow: 3 }}
+            aspectRatio="2 / 3"
           />
         </div>
       </div>

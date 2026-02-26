@@ -23,7 +23,7 @@ function ShootTile({ shoot, index }: { shoot: Shoot; index: number }) {
       <Link
         href={`/shoot/${shoot.id}`}
         className="block"
-        style={{ cursor: "none" }}
+
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >

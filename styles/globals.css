@@ -43,12 +43,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Hide custom cursor on touch devices */
-@media (hover: hover) and (pointer: fine) {
-  body {
-    cursor: none;
-  }
-}
 
 /* ============================================================
    SCROLLBAR — ultra-thin, minimal
@@ -173,28 +167,17 @@ img {
   }
 }
 
-/* Digital page — puzzle mosaic grid.
-   Portraits (tall 2:3) spans 2 rows on right.
-   Live Music + Nature stack on left. Projects full-width below. */
+/* Digital page — 2×2 puzzle grid.
+   Row 1: matching 2:3 tiles. Row 2: Nature fills cell, Projects drives height. */
 .digital-puzzle {
   display: grid;
   grid-template-columns: 1fr;
-  grid-auto-rows: auto;
   gap: clamp(0.75rem, 1.5vw, 1.25rem);
-}
-
-.digital-puzzle > * {
-  min-height: 250px;
 }
 
 @media (min-width: 768px) {
   .digital-puzzle {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr 1fr auto;
-  }
-
-  .digital-puzzle > *:nth-child(4) {
-    aspect-ratio: 3 / 1;
   }
 }
 
