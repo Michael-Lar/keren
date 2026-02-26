@@ -152,13 +152,13 @@ export default function DigitalPageContent() {
         </motion.h1>
 
         <div className="digital-puzzle">
-          {/* Row 1: Live Music + Portraits — both 2:3, matching heights */}
+          {/* Row 1: Live Music (horizontal) + Portraits (vertical) */}
           <Tile
             title={liveMusic.title}
             href={`/shoot/${liveMusic.id}`}
             coverImage={liveMusic.coverImage}
             index={0}
-            aspectRatio="2 / 3"
+            aspectRatio="3 / 2"
           />
           <Tile
             title={portraits.title}
@@ -168,20 +168,20 @@ export default function DigitalPageContent() {
             aspectRatio="2 / 3"
           />
 
-          {/* Row 2: Nature (3:2 landscape) + Projects (2:3 portrait) */}
+          {/* Row 2: Nature (vertical) + Projects (horizontal) */}
           <Tile
             title={nature.title}
             href={`/shoot/${nature.id}`}
             coverImage={nature.coverImage}
             index={2}
-            aspectRatio="3 / 2"
+            aspectRatio="2 / 3"
           />
           <Tile
             title={projects.title}
             href={`/shoot/${projects.id}`}
             coverImage={projects.coverImage}
             index={3}
-            aspectRatio="2 / 3"
+            aspectRatio="3 / 2"
           />
         </div>
       </div>

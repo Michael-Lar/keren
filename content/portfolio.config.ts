@@ -153,7 +153,7 @@ export const siteConfig = {
           photos: [30, 31, 32, 33, 34, 35].map((n) => ({
             src: `/photos/film-24-25/${String(n).padStart(2, "0")}.jpg`,
             caption: "",
-            aspect: "3:4" as const,
+            aspect: "4:3" as const,
           })),
         },
         {
@@ -173,7 +173,7 @@ export const siteConfig = {
           photos: [15, 25, 35, 45, 55].map((n) => ({
             src: `/photos/spaces/${String(n).padStart(2, "0")}.jpg`,
             caption: "",
-            aspect: "4:3" as const,
+            aspect: "3:4" as const,
           })),
         },
         {
@@ -183,7 +183,7 @@ export const siteConfig = {
           photos: [50, 60, 70].map((n) => ({
             src: `/photos/spaces/${String(n).padStart(2, "0")}.jpg`,
             caption: "",
-            aspect: "3:4" as const,
+            aspect: "4:3" as const,
           })),
         },
       ],
