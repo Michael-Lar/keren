@@ -167,12 +167,13 @@ img {
   }
 }
 
-/* Digital page — 2×2 puzzle grid.
-   Row 1: matching 2:3 tiles. Row 2: Nature fills cell, Projects drives height. */
+/* Digital page — 2×2 grid with true aspect ratios per tile.
+   Row 1: matching 2:3 tiles. Row 2: Nature 3:2 + Projects 2:3. */
 .digital-puzzle {
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  align-items: start;
 }
 
 @media (min-width: 768px) {

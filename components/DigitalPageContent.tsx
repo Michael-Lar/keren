@@ -168,12 +168,13 @@ export default function DigitalPageContent() {
             aspectRatio="2 / 3"
           />
 
-          {/* Row 2: Nature (fills cell) + Projects (2:3, drives row height) */}
+          {/* Row 2: Nature (3:2 landscape) + Projects (2:3 portrait) */}
           <Tile
             title={nature.title}
             href={`/shoot/${nature.id}`}
             coverImage={nature.coverImage}
             index={2}
+            aspectRatio="3 / 2"
           />
           <Tile
             title={projects.title}
