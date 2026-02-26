@@ -167,19 +167,28 @@ img {
   }
 }
 
-/* Digital page — 2×2 grid with true aspect ratios per tile.
-   Row 1: matching 2:3 tiles. Row 2: Nature 3:2 + Projects 2:3. */
+/* Digital page — two independent columns that stack items vertically.
+   Left: Live Music (3:2) over Nature (2:3).
+   Right: Portraits (2:3) over Projects (3:2).
+   Heights balance naturally since 3:2 + 2:3 = 2:3 + 3:2. */
 .digital-puzzle {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: clamp(0.75rem, 1.5vw, 1.25rem);
-  align-items: start;
 }
 
 @media (min-width: 768px) {
   .digital-puzzle {
-    grid-template-columns: repeat(2, 1fr);
+    flex-direction: row;
   }
+}
+
+.digital-col {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  flex: 1;
+  min-width: 0;
 }
 
 /* ============================================================

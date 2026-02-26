@@ -152,37 +152,41 @@ export default function DigitalPageContent() {
         </motion.h1>
 
         <div className="digital-puzzle">
-          {/* Row 1: Live Music (horizontal) + Portraits (vertical) */}
-          <Tile
-            title={liveMusic.title}
-            href={`/shoot/${liveMusic.id}`}
-            coverImage={liveMusic.coverImage}
-            index={0}
-            aspectRatio="3 / 2"
-          />
-          <Tile
-            title={portraits.title}
-            href={`/shoot/${portraits.id}`}
-            coverImage={portraits.coverImage}
-            index={1}
-            aspectRatio="2 / 3"
-          />
+          {/* Left column: Live Music (big, horizontal) over Nature (small, vertical) */}
+          <div className="digital-col">
+            <Tile
+              title={liveMusic.title}
+              href={`/shoot/${liveMusic.id}`}
+              coverImage={liveMusic.coverImage}
+              index={0}
+              aspectRatio="3 / 2"
+            />
+            <Tile
+              title={nature.title}
+              href={`/shoot/${nature.id}`}
+              coverImage={nature.coverImage}
+              index={2}
+              aspectRatio="2 / 3"
+            />
+          </div>
 
-          {/* Row 2: Nature (vertical) + Projects (horizontal) */}
-          <Tile
-            title={nature.title}
-            href={`/shoot/${nature.id}`}
-            coverImage={nature.coverImage}
-            index={2}
-            aspectRatio="2 / 3"
-          />
-          <Tile
-            title={projects.title}
-            href={`/shoot/${projects.id}`}
-            coverImage={projects.coverImage}
-            index={3}
-            aspectRatio="3 / 2"
-          />
+          {/* Right column: Portraits (small, vertical) over Projects (big, horizontal) */}
+          <div className="digital-col">
+            <Tile
+              title={portraits.title}
+              href={`/shoot/${portraits.id}`}
+              coverImage={portraits.coverImage}
+              index={1}
+              aspectRatio="2 / 3"
+            />
+            <Tile
+              title={projects.title}
+              href={`/shoot/${projects.id}`}
+              coverImage={projects.coverImage}
+              index={3}
+              aspectRatio="3 / 2"
+            />
+          </div>
         </div>
       </div>
     </main>
