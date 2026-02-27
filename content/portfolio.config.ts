@@ -149,9 +149,9 @@ export const siteConfig = {
         {
           id: "live-music",
           title: "Live Music",
-          coverImage: "/photos/film-24-25/30.jpg",
-          photos: [30, 31, 32, 33, 34, 35].map((n) => ({
-            src: `/photos/film-24-25/${String(n).padStart(2, "0")}.jpg`,
+          coverImage: "/photos/live-music/whitewater-11-29-24/01.jpg",
+          photos: Array.from({ length: 39 }, (_, i) => ({
+            src: `/photos/live-music/whitewater-11-29-24/${String(i + 1).padStart(2, "0")}.jpg`,
             caption: "",
             aspect: "4:3" as const,
           })),
