@@ -159,12 +159,27 @@ export const siteConfig = {
         {
           id: "portraits-digital",
           title: "Portraits",
-          coverImage: "/photos/film-24-25/40.jpg",
-          photos: [40, 41, 42, 43, 44].map((n) => ({
-            src: `/photos/film-24-25/${String(n).padStart(2, "0")}.jpg`,
-            caption: "",
-            aspect: "3:4" as const,
-          })),
+          coverImage: "/photos/portraits-digital/01.jpg",
+          // Aspect ratios determined from original pixel dimensions:
+          // 01: 4000×6000 portrait, 02: 5275×3520 landscape, 03: 910×1024 portrait
+          // 04–06: portrait, 07: 6000×4000 landscape, 08–11: portrait
+          // 12: 6000×4000 landscape, 13: portrait, 14: 6000×4000 landscape
+          photos: [
+            { src: "/photos/portraits-digital/01.jpg", caption: "", aspect: "3:4" as const },
+            { src: "/photos/portraits-digital/02.jpg", caption: "", aspect: "4:3" as const },
+            { src: "/photos/portraits-digital/03.jpg", caption: "", aspect: "3:4" as const },
+            { src: "/photos/portraits-digital/04.jpg", caption: "", aspect: "3:4" as const },
+            { src: "/photos/portraits-digital/05.jpg", caption: "", aspect: "3:4" as const },
+            { src: "/photos/portraits-digital/06.jpg", caption: "", aspect: "3:4" as const },
+            { src: "/photos/portraits-digital/07.jpg", caption: "", aspect: "4:3" as const },
+            { src: "/photos/portraits-digital/08.jpg", caption: "", aspect: "3:4" as const },
+            { src: "/photos/portraits-digital/09.jpg", caption: "", aspect: "3:4" as const },
+            { src: "/photos/portraits-digital/10.jpg", caption: "", aspect: "3:4" as const },
+            { src: "/photos/portraits-digital/11.jpg", caption: "", aspect: "3:4" as const },
+            { src: "/photos/portraits-digital/12.jpg", caption: "", aspect: "4:3" as const },
+            { src: "/photos/portraits-digital/13.jpg", caption: "", aspect: "3:4" as const },
+            { src: "/photos/portraits-digital/14.jpg", caption: "", aspect: "4:3" as const },
+          ],
         },
         {
           id: "nature",

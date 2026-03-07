@@ -192,44 +192,52 @@ img {
 }
 
 /* ============================================================
-   PHOTO GRID — shoot page, CSS columns masonry layout
-   Shows each photo at its real aspect ratio without cropping.
-   3 cols desktop, 2 tablet, 1 mobile.
+   PHOTO GRID — shoot page
+   3-column CSS grid where:
+     Landscape (4:3)  → .wide → span 2 columns
+     Portrait  (3:4)  → span 1 column
+     Square    (1:1)  → span 1 column
+   Photos render at their natural aspect ratio (no cropping).
+   2-col on tablet: landscape still fills full width.
+   1-col on mobile: everything full width.
    ============================================================ */
 
-.photo-grid-masonry {
-  column-count: 1;
-  column-gap: 3px;
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  align-items: start;
 }
 
-@media (min-width: 640px) {
-  .photo-grid-masonry {
-    column-count: 2;
+.photo-grid-item.wide {
+  grid-column: span 2;
+}
+
+/* Tablet: 2-col, landscape items span full width */
+@media (max-width: 767px) {
+  .photo-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (min-width: 1024px) {
-  .photo-grid-masonry {
-    column-count: 3;
+/* Mobile: single column, span overrides irrelevant */
+@media (max-width: 479px) {
+  .photo-grid {
+    grid-template-columns: 1fr;
   }
-}
-
-.photo-grid-masonry.wide-gap {
-  column-gap: 8px;
-}
-
-.photo-grid-masonry.wide-gap .photo-grid-item {
-  margin-bottom: 8px;
+  .photo-grid-item.wide {
+    grid-column: span 1;
+  }
 }
 
 .photo-grid-item {
-  animation: gridFadeIn 0.4s ease-out both;
+  animation: gridFadeIn 0.5s ease-out both;
 }
 
 @keyframes gridFadeIn {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;

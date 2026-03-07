@@ -12,7 +12,6 @@ interface Props {
 
 export default function ShootPageClient({ group, shoot }: Props) {
   const isSpaces = (shoot as { parent?: string }).parent === "Spaces";
-  const isDigital = group.id === "digital";
 
   const backHref = isSpaces ? "/spaces" : `/${group.id}`;
   const backLabel = isSpaces ? "Spaces" : group.title;
@@ -108,7 +107,7 @@ export default function ShootPageClient({ group, shoot }: Props) {
           </p>
         </motion.div>
 
-        <PhotoGrid photos={shoot.photos} wideGap={isDigital} />
+        <PhotoGrid photos={shoot.photos} />
       </div>
     </main>
   );

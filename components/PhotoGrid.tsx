@@ -6,49 +6,57 @@ import Lightbox from "./Lightbox";
 
 interface PhotoGridProps {
   photos: Photo[];
-  wideGap?: boolean;
 }
 
 /**
- * PhotoGrid — Responsive grid of photos on the shoot page.
+ * PhotoGrid — 3-column CSS grid with intelligent spanning.
  *
- * Each photo renders at its real aspect ratio (3:4, 4:3, 1:1) without
- * cropping. Uses CSS columns for a masonry-like flow where mixed sizes
- * pack naturally. Click opens lightbox.
+ * Layout rules (per Keren's spec):
+ *   Landscape (4:3) → span 2 columns  — fills 2/3 of the row width
+ *   Portrait  (3:4) → span 1 column   — fills 1/3 of the row width
+ *   Square    (1:1) → span 1 column   — fills 1/3 of the row width
+ *
+ * On tablet (2-col): landscape still spans 2 (full width).
+ * On mobile (1-col): all photos are full width regardless.
+ *
+ * Photos render at their natural aspect ratio — no cropping.
+ * Clicking any photo opens the Vivian Maier-style lightbox.
  */
-export default function PhotoGrid({ photos, wideGap }: PhotoGridProps) {
+export default function PhotoGrid({ photos }: PhotoGridProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   return (
     <>
-      <div className={`photo-grid-masonry${wideGap ? " wide-gap" : ""}`} style={{ padding: "2rem 0 6rem" }}>
-        {photos.map((photo, index) => (
-          <div
-            key={index}
-            className="photo-grid-item"
-            onClick={() => setLightboxIndex(index)}
-            data-cursor-hover="true"
-            style={{
-              cursor: "pointer",
-              marginBottom: "3px",
-              breakInside: "avoid",
-              backgroundColor: "var(--charcoal)",
-              overflow: "hidden",
-            }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={photo.src}
-              alt={photo.caption || `Photo ${index + 1}`}
-              loading={index < 6 ? "eager" : "lazy"}
+      <div className="photo-grid" style={{ padding: "2rem 0 6rem" }}>
+        {photos.map((photo, index) => {
+          const isWide = photo.aspect === "4:3";
+          return (
+            <div
+              key={index}
+              className={`photo-grid-item${isWide ? " wide" : ""}`}
+              onClick={() => setLightboxIndex(index)}
+              data-cursor-hover="true"
               style={{
-                width: "100%",
-                height: "auto",
-                display: "block",
+                cursor: "pointer",
+                backgroundColor: "var(--charcoal)",
+                overflow: "hidden",
+                animationDelay: `${Math.min(index * 0.04, 0.4)}s`,
               }}
-            />
-          </div>
-        ))}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={photo.src}
+                alt={photo.caption || `Photo ${index + 1}`}
+                loading={index < 5 ? "eager" : "lazy"}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  display: "block",
+                }}
+              />
+            </div>
+          );
+        })}
       </div>
 
       {lightboxIndex !== null && (
