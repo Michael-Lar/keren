@@ -112,12 +112,12 @@ export default function DigitalPageContent() {
       style={{
         backgroundColor: "var(--black)",
         minHeight: "100vh",
-        paddingTop: "8rem",
-        paddingBottom: "4rem",
+        paddingTop: "6rem",
+        paddingBottom: "3rem",
       }}
     >
       <div
-        style={{ maxWidth: "1400px", margin: "0 auto" }}
+        style={{ maxWidth: "900px", margin: "0 auto" }}
         className="px-6 md:px-10"
       >
         <motion.h1
@@ -126,12 +126,12 @@ export default function DigitalPageContent() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           style={{
             fontFamily: "var(--font-cormorant), Georgia, serif",
-            fontSize: "clamp(3.5rem, 8vw, 7rem)",
+            fontSize: "clamp(3rem, 6vw, 5rem)",
             fontWeight: 600,
             letterSpacing: "0.02em",
             color: "var(--white)",
             lineHeight: 0.95,
-            marginBottom: "2rem",
+            marginBottom: "1rem",
             textTransform: "uppercase",
           }}
         >
