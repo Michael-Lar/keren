@@ -117,7 +117,7 @@ export default function PhotoGrid({ photos }: PhotoGridProps) {
         {indexedRows.map((row, rowIdx) => (
           <div
             key={rowIdx}
-            style={{ display: "flex", lineHeight: 0, fontSize: 0 }}
+            style={{ display: "flex", alignItems: "flex-start", lineHeight: 0, fontSize: 0 }}
           >
             {row.map(({ photo, index }) => (
               <div
