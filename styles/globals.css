@@ -111,55 +111,11 @@ img {
 }
 
 /* ============================================================
-   GRAIN OVERLAY — via CSS filter (fallback)
-   The main grain is handled by GrainOverlay.tsx
-   ============================================================ */
-
-.grain-filter {
-  filter: url(#grain);
-}
-
-/* ============================================================
-   HOVER ZOOM — consistent tile zoom behavior
-   Use overflow-hidden on container, zoom class on img/child
-   ============================================================ */
-
-.hover-zoom-container {
-  overflow: hidden;
-}
-
-.hover-zoom-container img {
-  transition: transform 0.45s cubic-bezier(0.25, 0.1, 0.25, 1);
-  will-change: transform;
-}
-
-.hover-zoom-container:hover img {
-  transform: scale(1.06);
-}
-
-/* ============================================================
    PAGE TRANSITION WRAPPER
    ============================================================ */
 
 .page-wrapper {
   min-height: 100vh;
-}
-
-/* ============================================================
-   GROUP SHOOTS GRID — /analog and /digital pages
-   2 cols desktop, 1 mobile, generous gap like marionbergin.com
-   ============================================================ */
-
-.group-shoots-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(1rem, 2vw, 1.5rem);
-}
-
-@media (min-width: 768px) {
-  .group-shoots-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 /* Analog + Spaces pages — 2×2 square grid */

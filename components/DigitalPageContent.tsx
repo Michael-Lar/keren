@@ -12,17 +12,9 @@ interface TileProps {
   coverImage: string;
   index: number;
   aspectRatio?: string;
-  gridStyle?: React.CSSProperties;
 }
 
-function Tile({
-  title,
-  href,
-  coverImage,
-  index,
-  aspectRatio,
-  gridStyle,
-}: TileProps) {
+function Tile({ title, href, coverImage, index, aspectRatio }: TileProps) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -35,7 +27,6 @@ function Tile({
         delay: (index % 2) * 0.12,
         ease: "easeOut",
       }}
-      style={gridStyle}
     >
       <Link
         href={href}

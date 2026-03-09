@@ -3,6 +3,7 @@ import { Cormorant_Garamond, DM_Mono, Lora } from "next/font/google";
 import "@/styles/globals.css";
 import Nav from "@/components/Nav";
 import GrainOverlay from "@/components/GrainOverlay";
+import CustomCursor from "@/components/CustomCursor";
 import { siteConfig } from "@/content/portfolio.config";
 
 // ─── Font Loading ─────────────────────────────────────────────
@@ -59,6 +60,9 @@ export default function RootLayout({
       <body>
         {/* Film grain — fixed overlay on every page, below lightbox z-index */}
         <GrainOverlay />
+
+        {/* Custom cursor — desktop only, lerp-smoothed circle */}
+        <CustomCursor />
 
         {/* Fixed navigation — present on every page */}
         <Nav />
