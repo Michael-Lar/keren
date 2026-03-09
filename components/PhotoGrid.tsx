@@ -117,11 +117,7 @@ export default function PhotoGrid({ photos }: PhotoGridProps) {
         {indexedRows.map((row, rowIdx) => (
           <div
             key={rowIdx}
-            style={{
-              display: "flex",
-              height: "clamp(22vh, 32vw, 50vh)",
-              marginBottom: 0,
-            }}
+            style={{ display: "flex" }}
           >
             {row.map(({ photo, index }) => (
               <div
@@ -129,9 +125,8 @@ export default function PhotoGrid({ photos }: PhotoGridProps) {
                 onClick={() => setLightboxIndex(index)}
                 style={{
                   flex: numericRatio(photo.aspect),
-                  overflow: "hidden",
                   cursor: "pointer",
-                  position: "relative",
+                  minWidth: 0,
                 }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -139,7 +134,7 @@ export default function PhotoGrid({ photos }: PhotoGridProps) {
                   src={photo.src}
                   alt={photo.caption || `Photo ${index + 1}`}
                   loading={index < 6 ? "eager" : "lazy"}
-                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                  style={{ width: "100%", height: "auto", display: "block" }}
                 />
               </div>
             ))}
