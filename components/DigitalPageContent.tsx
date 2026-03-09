@@ -153,7 +153,7 @@ export default function DigitalPageContent() {
               href={`/shoot/${nature.id}`}
               coverImage={nature.coverImage}
               index={2}
-              aspectRatio="3 / 4"
+              aspectRatio="1 / 1"
             />
           </div>
 
@@ -164,7 +164,7 @@ export default function DigitalPageContent() {
               href={`/shoot/${portraits.id}`}
               coverImage={portraits.coverImage}
               index={1}
-              aspectRatio="3 / 4"
+              aspectRatio="1 / 1"
             />
             <Tile
               title={projects.title}
