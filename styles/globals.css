@@ -7,6 +7,7 @@
    ============================================================ */
 
 :root {
+  /* Colors */
   --black: #111111;
   --deep: #181818;
   --charcoal: #222222;
@@ -17,6 +18,13 @@
   --paper: #e8e2d9;
   --white: #f5f1eb;
   --accent: #9b7b3f;
+
+  /* Z-index layers */
+  --z-nav: 1000;
+  --z-nav-overlay: 999;
+  --z-grain: 9998;
+  --z-lightbox: 9999;
+  --z-cursor: 99999;
 }
 
 /* ============================================================
@@ -167,13 +175,14 @@ img {
   }
 }
 
-/* Digital page — two-column puzzle, zero gaps.
-   Portrait tiles use 3:4 (not 2:3) — less tall, both tiles visible on screen. */
-
+/* Digital page — two independent columns that stack items vertically.
+   Left: Live Music (3:2) over Nature (2:3).
+   Right: Portraits (2:3) over Projects (3:2).
+   Heights balance naturally since 3:2 + 2:3 = 2:3 + 3:2. */
 .digital-puzzle {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
 }
 
 @media (min-width: 768px) {
@@ -185,7 +194,7 @@ img {
 .digital-col {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
   flex: 1;
   min-width: 0;
 }
@@ -203,32 +212,21 @@ img {
    Gap: 0 everywhere. Images are flush / touching.
    ============================================================ */
 
-/* Mixed: 3-col, landscape spans 2 */
+/* Mixed: 3 CSS columns — images stack at natural height, zero gaps always */
 .photo-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  align-items: start;
+  columns: 3;
+  column-gap: 0;
 }
 
-.photo-grid-item.wide {
-  grid-column: span 2;
-}
-
-/* Tablet */
 @media (max-width: 767px) {
   .photo-grid {
-    grid-template-columns: repeat(2, 1fr);
+    columns: 2;
   }
 }
 
-/* Mobile */
 @media (max-width: 479px) {
   .photo-grid {
-    grid-template-columns: 1fr;
-  }
-  .photo-grid-item.wide {
-    grid-column: span 1;
+    columns: 1;
   }
 }
 
@@ -247,6 +245,7 @@ img {
 }
 
 .photo-grid-item {
+  break-inside: avoid;
   animation: gridFadeIn 0.5s ease-out both;
 }
 

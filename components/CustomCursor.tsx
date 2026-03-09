@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Z } from "@/lib/constants";
 
 /**
  * CustomCursor — Small circle that follows the mouse on desktop.
@@ -86,7 +87,7 @@ export default function CustomCursor() {
         position: "fixed",
         top: 0,
         left: 0,
-        zIndex: 99999,
+        zIndex: Z.cursor,
         pointerEvents: "none",
         width: isHovering ? 28 : 16,
         height: isHovering ? 28 : 16,

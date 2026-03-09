@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { siteConfig } from "@/content/portfolio.config";
+import { Z } from "@/lib/constants";
 
 /**
  * Nav — Fixed transparent navigation on every page.
@@ -30,7 +31,7 @@ export default function Nav() {
           top: 0,
           left: 0,
           right: 0,
-          zIndex: 1000,
+          zIndex: Z.nav,
           background:
             "linear-gradient(to bottom, rgba(17,17,17,0.6) 0%, rgba(17,17,17,0.25) 70%, transparent 100%)",
         }}
@@ -101,8 +102,8 @@ export default function Nav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed inset-0 z-[999] flex flex-col"
-            style={{ backgroundColor: "var(--black)" }}
+            className="fixed inset-0 flex flex-col"
+            style={{ zIndex: Z.navOverlay, backgroundColor: "var(--black)" }}
           >
             <div className="flex justify-between items-start px-6 py-5">
               <Link

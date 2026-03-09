@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { type Group, type Shoot } from "@/content/portfolio.config";
 import PhotoGrid from "@/components/PhotoGrid";
+import BackLink from "@/components/BackLink";
 
 interface Props {
   group: Group;
@@ -24,48 +24,20 @@ export default function ShootPageClient({ group, shoot }: Props) {
       style={{
         backgroundColor: "var(--black)",
         minHeight: "100vh",
-        paddingTop: "7rem",
+        paddingTop: "5rem",
       }}
     >
       <div
         style={{ maxWidth: "1200px", margin: "0 auto" }}
         className="px-6 md:px-10"
       >
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          style={{ marginBottom: "3rem" }}
-        >
-          <Link
-            href={backHref}
-            style={{
-              fontFamily: "var(--font-dm-mono), monospace",
-              fontSize: "11px",
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "var(--silver)",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.4rem",
-              transition: "color 0.2s",
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.color = "var(--white)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.color = "var(--silver)")
-            }
-          >
-            ← {backLabel}
-          </Link>
-        </motion.div>
+        <BackLink href={backHref} label={backLabel} />
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          style={{ marginBottom: "3rem" }}
+          style={{ marginBottom: "1.5rem" }}
         >
           <p
             style={{

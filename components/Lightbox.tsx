@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { createPortal } from "react-dom";
+import { Z } from "@/lib/constants";
 import { type Photo } from "@/content/portfolio.config";
 
 interface LightboxProps {
@@ -95,7 +96,7 @@ export default function Lightbox({ photos, initialIndex, onClose }: LightboxProp
       style={{
         position: "fixed",
         inset: 0,
-        zIndex: 9999,
+        zIndex: Z.lightbox,
         backgroundColor: "rgba(17, 17, 17, 0.97)",
         backdropFilter: "blur(4px)",
         display: "flex",
@@ -136,7 +137,7 @@ export default function Lightbox({ photos, initialIndex, onClose }: LightboxProp
           lineHeight: 1,
           padding: "0.25rem",
           transition: "color 0.2s",
-          zIndex: 2,
+          zIndex: Z.lightbox + 1,
         }}
         onMouseEnter={(e) =>
           (e.currentTarget.style.color = "var(--white)")
@@ -167,7 +168,7 @@ export default function Lightbox({ photos, initialIndex, onClose }: LightboxProp
             cursor: "pointer",
             padding: "1rem 0.75rem",
             transition: "color 0.2s",
-            zIndex: 2,
+            zIndex: Z.lightbox + 1,
           }}
           onMouseEnter={(e) =>
             (e.currentTarget.style.color = "var(--white)")
@@ -210,7 +211,7 @@ export default function Lightbox({ photos, initialIndex, onClose }: LightboxProp
             cursor: "pointer",
             padding: "1rem 0.75rem",
             transition: "color 0.2s",
-            zIndex: 2,
+            zIndex: Z.lightbox + 1,
           }}
           onMouseEnter={(e) =>
             (e.currentTarget.style.color = "var(--white)")

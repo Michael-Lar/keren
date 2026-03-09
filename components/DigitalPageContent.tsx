@@ -11,10 +11,18 @@ interface TileProps {
   href: string;
   coverImage: string;
   index: number;
-  aspectRatio: string;
+  aspectRatio?: string;
+  gridStyle?: React.CSSProperties;
 }
 
-function Tile({ title, href, coverImage, index, aspectRatio }: TileProps) {
+function Tile({
+  title,
+  href,
+  coverImage,
+  index,
+  aspectRatio,
+  gridStyle,
+}: TileProps) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -27,10 +35,12 @@ function Tile({ title, href, coverImage, index, aspectRatio }: TileProps) {
         delay: (index % 2) * 0.12,
         ease: "easeOut",
       }}
+      style={gridStyle}
     >
       <Link
         href={href}
-        style={{ display: "block" }}
+        className="block"
+        style={{ height: "100%", display: "block" }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
@@ -39,8 +49,11 @@ function Tile({ title, href, coverImage, index, aspectRatio }: TileProps) {
             position: "relative",
             overflow: "hidden",
             width: "100%",
-            aspectRatio,
             backgroundColor: "var(--charcoal)",
+            maxHeight: "calc(100vh - 9rem)",
+            ...(aspectRatio
+              ? { aspectRatio }
+              : { height: "100%", minHeight: "300px" }),
           }}
         >
           <Image
@@ -50,7 +63,8 @@ function Tile({ title, href, coverImage, index, aspectRatio }: TileProps) {
             sizes="(max-width: 768px) 100vw, 50vw"
             style={{
               objectFit: "cover",
-              transition: "transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)",
+              transition:
+                "transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)",
               transform: hovered ? "scale(1.04)" : "scale(1.0)",
             }}
             quality={75}
@@ -112,12 +126,12 @@ export default function DigitalPageContent() {
       style={{
         backgroundColor: "var(--black)",
         minHeight: "100vh",
-        paddingTop: "6rem",
-        paddingBottom: "3rem",
+        paddingTop: "5rem",
+        paddingBottom: "4rem",
       }}
     >
       <div
-        style={{ maxWidth: "900px", margin: "0 auto" }}
+        style={{ maxWidth: "1400px", margin: "0 auto" }}
         className="px-6 md:px-10"
       >
         <motion.h1
@@ -126,12 +140,12 @@ export default function DigitalPageContent() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           style={{
             fontFamily: "var(--font-cormorant), Georgia, serif",
-            fontSize: "clamp(3rem, 6vw, 5rem)",
+            fontSize: "clamp(2rem, 4vw, 3.5rem)",
             fontWeight: 600,
             letterSpacing: "0.02em",
             color: "var(--white)",
             lineHeight: 0.95,
-            marginBottom: "1rem",
+            marginBottom: "1.5rem",
             textTransform: "uppercase",
           }}
         >
@@ -139,7 +153,7 @@ export default function DigitalPageContent() {
         </motion.h1>
 
         <div className="digital-puzzle">
-          {/* Left: Live Music (landscape 3:2) over Nature (portrait 3:4) */}
+          {/* Left column: Live Music (big, horizontal) over Nature (small, vertical) */}
           <div className="digital-col">
             <Tile
               title={liveMusic.title}
@@ -153,18 +167,18 @@ export default function DigitalPageContent() {
               href={`/shoot/${nature.id}`}
               coverImage={nature.coverImage}
               index={2}
-              aspectRatio="1 / 1"
+              aspectRatio="2 / 3"
             />
           </div>
 
-          {/* Right: Portraits (portrait 3:4) over Projects (landscape 3:2) */}
+          {/* Right column: Portraits (small, vertical) over Projects (big, horizontal) */}
           <div className="digital-col">
             <Tile
               title={portraits.title}
               href={`/shoot/${portraits.id}`}
               coverImage={portraits.coverImage}
               index={1}
-              aspectRatio="1 / 1"
+              aspectRatio="2 / 3"
             />
             <Tile
               title={projects.title}

@@ -6,9 +6,42 @@
  * This is your entire portfolio in one file. Change your name,
  * swap images, add shoots, reorder groups — all here.
  *
- * See /public/photos/README.md for photo folder instructions.
+ * Aspect ratios are auto-detected from image files.
+ * Run `npm run gen-meta` after adding new photos.
  * ============================================================
  */
+
+import photoMetaRaw from "./photo-meta.json";
+
+// ============================================================
+// Internal: aspect-ratio lookup from generated metadata
+// ============================================================
+
+export type PhotoAspect = "3:4" | "4:3" | "1:1";
+
+const _metaMap = new Map<string, PhotoAspect>(
+  (photoMetaRaw as { src: string; aspect: PhotoAspect }[]).map((m) => [
+    m.src,
+    m.aspect,
+  ])
+);
+
+/** Returns the auto-detected aspect ratio for a photo src path. */
+function a(src: string): PhotoAspect {
+  return _metaMap.get(src) ?? "4:3";
+}
+
+/** Build a photo array from src paths and optional captions. */
+function photos(
+  srcs: string[],
+  captions: (string | undefined)[] = []
+): { src: string; caption: string; aspect: PhotoAspect }[] {
+  return srcs.map((src, i) => ({ src, caption: captions[i] ?? "", aspect: a(src) }));
+}
+
+// ============================================================
+// Site config
+// ============================================================
 
 export const siteConfig = {
   /**
@@ -25,9 +58,6 @@ export const siteConfig = {
 
   /**
    * Bio page content.
-   *
-   * paragraphs: Array of strings, each becomes its own <p> tag.
-   * image: Path to your portrait photo in /public/photos/bio/
    */
   bio: {
     paragraphs: [
@@ -47,8 +77,7 @@ export const siteConfig = {
   },
 
   /**
-   * Hero slideshow images (used on the landing page).
-   * Order matters — they cycle in sequence.
+   * Hero slideshow images. Order matters — they cycle in sequence.
    */
   heroImages: [
     "/photos/spaces/01.jpg",
@@ -64,11 +93,6 @@ export const siteConfig = {
    * ============================================================
    * GROUPS — Analog / Digital. Each group contains shoots (galleries).
    * ============================================================
-   *
-   * Shoots appear as tiles on the homepage gallery grid.
-   * Each shoot is one photo collection at /shoot/[shootId].
-   *
-   * Photo aspect: "3:4" (portrait), "4:3" (landscape), "1:1" (square).
    */
   groups: [
     {
@@ -79,66 +103,54 @@ export const siteConfig = {
           id: "street",
           title: "Street",
           coverImage: "/photos/film-24-25/02.jpg",
-          photos: (() => {
-            const nums = [2, 3, 4, 5, 6, 7, 8];
-            const captions = [
-              "New York, NY",
-              "35mm — Kodak Tri-X 400",
-              "Manhattan",
-              "",
-              "Brooklyn",
-              "35mm — Ilford HP5",
-              "Chinatown",
-            ];
-            const aspects = ["3:4", "4:3", "1:1", "3:4", "4:3", "1:1", "3:4"] as const;
-            return nums.map((n, i) => ({
-              src: `/photos/film-24-25/${String(n).padStart(2, "0")}.jpg`,
-              caption: captions[i],
-              aspect: aspects[i],
-            }));
-          })(),
+          photos: photos(
+            [2, 3, 4, 5, 6, 7, 8].map(
+              (n) => `/photos/film-24-25/${String(n).padStart(2, "0")}.jpg`
+            ),
+            ["New York, NY", "35mm — Kodak Tri-X 400", "Manhattan", "", "Brooklyn", "35mm — Ilford HP5", "Chinatown"]
+          ),
         },
         {
           id: "portraits-film",
           title: "Portraits",
           coverImage: "/photos/film-24-25/10.jpg",
-          photos: [10, 11, 12, 13, 14, 15].map((n, i) => ({
-            src: `/photos/film-24-25/${String(n).padStart(2, "0")}.jpg`,
-            caption: "",
-            aspect: (["3:4", "1:1", "4:3", "3:4", "1:1", "4:3"] as const)[i],
-          })),
+          photos: photos(
+            [10, 11, 12, 13, 14, 15].map(
+              (n) => `/photos/film-24-25/${String(n).padStart(2, "0")}.jpg`
+            )
+          ),
         },
         {
           id: "architecture",
           title: "Architecture",
           parent: "Spaces",
           coverImage: "/photos/spaces/01.jpg",
-          photos: Array.from({ length: 81 }, (_, i) => ({
-            src: `/photos/spaces/${String(i + 1).padStart(2, "0")}.jpg`,
-            caption: "",
-            aspect: "4:3" as const,
-          })),
+          photos: photos(
+            Array.from({ length: 81 }, (_, i) =>
+              `/photos/spaces/${String(i + 1).padStart(2, "0")}.jpg`
+            )
+          ),
         },
         {
           id: "nature-film",
           title: "Nature",
           parent: "Spaces",
           coverImage: "/photos/spaces/15.jpg",
-          photos: [15, 25, 35, 45, 55, 65, 75].map((n) => ({
-            src: `/photos/spaces/${String(n).padStart(2, "0")}.jpg`,
-            caption: "",
-            aspect: "4:3" as const,
-          })),
+          photos: photos(
+            [15, 25, 35, 45, 55, 65, 75].map(
+              (n) => `/photos/spaces/${String(n).padStart(2, "0")}.jpg`
+            )
+          ),
         },
         {
           id: "still-constructed",
           title: "Still / Constructed",
           coverImage: "/photos/film-24-25/20.jpg",
-          photos: [20, 21, 22, 23, 24, 25].map((n, i) => ({
-            src: `/photos/film-24-25/${String(n).padStart(2, "0")}.jpg`,
-            caption: "",
-            aspect: (["1:1", "4:3", "3:4", "1:1", "4:3", "3:4"] as const)[i],
-          })),
+          photos: photos(
+            [20, 21, 22, 23, 24, 25].map(
+              (n) => `/photos/film-24-25/${String(n).padStart(2, "0")}.jpg`
+            )
+          ),
         },
       ],
     },
@@ -150,56 +162,41 @@ export const siteConfig = {
           id: "live-music",
           title: "Live Music",
           coverImage: "/photos/live-music/whitewater-11-29-24/01.jpg",
-          photos: Array.from({ length: 39 }, (_, i) => ({
-            src: `/photos/live-music/whitewater-11-29-24/${String(i + 1).padStart(2, "0")}.jpg`,
-            caption: "",
-            aspect: "4:3" as const,
-          })),
+          photos: photos(
+            Array.from({ length: 39 }, (_, i) =>
+              `/photos/live-music/whitewater-11-29-24/${String(i + 1).padStart(2, "0")}.jpg`
+            )
+          ),
         },
         {
           id: "portraits-digital",
           title: "Portraits",
           coverImage: "/photos/portraits-digital/01.jpg",
-          // Aspect ratios determined from original pixel dimensions:
-          // 01: 4000×6000 portrait, 02: 5275×3520 landscape, 03: 910×1024 portrait
-          // 04–06: portrait, 07: 6000×4000 landscape, 08–11: portrait
-          // 12: 6000×4000 landscape, 13: portrait, 14: 6000×4000 landscape
-          photos: [
-            { src: "/photos/portraits-digital/01.jpg", caption: "", aspect: "3:4" as const },
-            { src: "/photos/portraits-digital/02.jpg", caption: "", aspect: "4:3" as const },
-            { src: "/photos/portraits-digital/03.jpg", caption: "", aspect: "3:4" as const },
-            { src: "/photos/portraits-digital/04.jpg", caption: "", aspect: "3:4" as const },
-            { src: "/photos/portraits-digital/05.jpg", caption: "", aspect: "3:4" as const },
-            { src: "/photos/portraits-digital/06.jpg", caption: "", aspect: "3:4" as const },
-            { src: "/photos/portraits-digital/07.jpg", caption: "", aspect: "4:3" as const },
-            { src: "/photos/portraits-digital/08.jpg", caption: "", aspect: "3:4" as const },
-            { src: "/photos/portraits-digital/09.jpg", caption: "", aspect: "3:4" as const },
-            { src: "/photos/portraits-digital/10.jpg", caption: "", aspect: "3:4" as const },
-            { src: "/photos/portraits-digital/11.jpg", caption: "", aspect: "3:4" as const },
-            { src: "/photos/portraits-digital/12.jpg", caption: "", aspect: "4:3" as const },
-            { src: "/photos/portraits-digital/13.jpg", caption: "", aspect: "3:4" as const },
-            { src: "/photos/portraits-digital/14.jpg", caption: "", aspect: "4:3" as const },
-          ],
+          photos: photos(
+            Array.from({ length: 14 }, (_, i) =>
+              `/photos/portraits-digital/${String(i + 1).padStart(2, "0")}.jpg`
+            )
+          ),
         },
         {
           id: "nature",
           title: "Nature",
           coverImage: "/photos/spaces/15.jpg",
-          photos: [15, 25, 35, 45, 55].map((n) => ({
-            src: `/photos/spaces/${String(n).padStart(2, "0")}.jpg`,
-            caption: "",
-            aspect: "3:4" as const,
-          })),
+          photos: photos(
+            [15, 25, 35, 45, 55].map(
+              (n) => `/photos/spaces/${String(n).padStart(2, "0")}.jpg`
+            )
+          ),
         },
         {
           id: "projects",
           title: "Projects",
           coverImage: "/photos/spaces/50.jpg",
-          photos: [50, 60, 70].map((n) => ({
-            src: `/photos/spaces/${String(n).padStart(2, "0")}.jpg`,
-            caption: "",
-            aspect: "4:3" as const,
-          })),
+          photos: photos(
+            [50, 60, 70].map(
+              (n) => `/photos/spaces/${String(n).padStart(2, "0")}.jpg`
+            )
+          ),
         },
       ],
     },
@@ -209,8 +206,6 @@ export const siteConfig = {
 // ============================================================
 // TypeScript types — exported for use in components
 // ============================================================
-
-export type PhotoAspect = "3:4" | "4:3" | "1:1";
 
 export type Photo = {
   src: string;
@@ -235,7 +230,7 @@ export type Group = {
 
 export type SiteConfig = typeof siteConfig;
 
-/** Get all shoots across groups (for homepage grid and lookup by id). */
+/** Get all shoots across groups. */
 export function getAllShoots(): Shoot[] {
   return siteConfig.groups.flatMap((g) => g.shoots);
 }

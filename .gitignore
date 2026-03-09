@@ -35,6 +35,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Generated — run `npm run gen-meta` to rebuild
+content/photo-meta.json
+
 # Source image folders (resized copies live in public/photos/)
 CORE STUDIO 4 - ARCHITECTURE PROJECT/
 FILM 24_25/
+DIGITAL - PORTRAITS/
+Whitewater - 11.29.24 - @k.sdrkl/
