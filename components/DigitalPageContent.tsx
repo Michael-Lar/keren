@@ -11,18 +11,15 @@ interface TileProps {
   href: string;
   coverImage: string;
   index: number;
-  aspectRatio?: string;
-  gridStyle?: React.CSSProperties;
+  /** Flex-grow value — controls proportional height within the column. */
+  flexValue: number;
 }
 
-function Tile({
-  title,
-  href,
-  coverImage,
-  index,
-  aspectRatio,
-  gridStyle,
-}: TileProps) {
+/**
+ * Tile — fills its flex container completely (no fixed aspect ratio).
+ * Height is controlled by the parent column's flex proportions.
+ */
+function Tile({ title, href, coverImage, index, flexValue }: TileProps) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -35,12 +32,11 @@ function Tile({
         delay: (index % 2) * 0.12,
         ease: "easeOut",
       }}
-      style={gridStyle}
+      style={{ flex: flexValue, minHeight: 0, position: "relative" }}
     >
       <Link
         href={href}
-        className="block"
-        style={{ height: "100%", display: "block" }}
+        style={{ display: "block", height: "100%" }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
@@ -49,10 +45,8 @@ function Tile({
             position: "relative",
             overflow: "hidden",
             width: "100%",
+            height: "100%",
             backgroundColor: "var(--charcoal)",
-            ...(aspectRatio
-              ? { aspectRatio }
-              : { height: "100%", minHeight: "300px" }),
           }}
         >
           <Image
@@ -62,8 +56,7 @@ function Tile({
             sizes="(max-width: 768px) 100vw, 50vw"
             style={{
               objectFit: "cover",
-              transition:
-                "transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)",
+              transition: "transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)",
               transform: hovered ? "scale(1.04)" : "scale(1.0)",
             }}
             quality={75}
@@ -121,16 +114,27 @@ export default function DigitalPageContent() {
   const projects = group.shoots.find((s) => s.id === "projects")!;
 
   return (
-    <main
-      style={{
-        backgroundColor: "var(--black)",
-        minHeight: "100vh",
-        paddingTop: "8rem",
-        paddingBottom: "6rem",
-      }}
-    >
+    /*
+     * On desktop: the page is exactly one viewport tall.
+     * The heading takes a fixed slice; the puzzle fills the rest.
+     * On mobile: natural scroll (stacked columns are too small to constrain).
+     *
+     * Flex proportions match the intended aspect ratios:
+     *   3:2 tile → flex 4   (shorter)
+     *   2:3 tile → flex 9   (taller, ~2.25× as tall as the 3:2 tile)
+     * Both columns sum to flex 13, so left and right heights are equal.
+     */
+    <main className="digital-page">
       <div
-        style={{ maxWidth: "1400px", margin: "0 auto" }}
+        style={{
+          maxWidth: "1400px",
+          margin: "0 auto",
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          flex: 1,
+          minHeight: 0,
+        }}
         className="px-6 md:px-10"
       >
         <motion.h1
@@ -144,47 +148,49 @@ export default function DigitalPageContent() {
             letterSpacing: "0.02em",
             color: "var(--white)",
             lineHeight: 0.95,
-            marginBottom: "4rem",
+            marginBottom: "clamp(1rem, 2.5vh, 2.5rem)",
             textTransform: "uppercase",
+            flexShrink: 0,
           }}
         >
           Digital
         </motion.h1>
 
+        {/* Puzzle grid — fills all remaining height */}
         <div className="digital-puzzle">
-          {/* Left column: Live Music (big, horizontal) over Nature (small, vertical) */}
+          {/* Left: Live Music (3:2 → flex 4) over Nature (2:3 → flex 9) */}
           <div className="digital-col">
             <Tile
               title={liveMusic.title}
               href={`/shoot/${liveMusic.id}`}
               coverImage={liveMusic.coverImage}
               index={0}
-              aspectRatio="3 / 2"
+              flexValue={4}
             />
             <Tile
               title={nature.title}
               href={`/shoot/${nature.id}`}
               coverImage={nature.coverImage}
               index={2}
-              aspectRatio="2 / 3"
+              flexValue={9}
             />
           </div>
 
-          {/* Right column: Portraits (small, vertical) over Projects (big, horizontal) */}
+          {/* Right: Portraits (2:3 → flex 9) over Projects (3:2 → flex 4) */}
           <div className="digital-col">
             <Tile
               title={portraits.title}
               href={`/shoot/${portraits.id}`}
               coverImage={portraits.coverImage}
               index={1}
-              aspectRatio="2 / 3"
+              flexValue={9}
             />
             <Tile
               title={projects.title}
               href={`/shoot/${projects.id}`}
               coverImage={projects.coverImage}
               index={3}
-              aspectRatio="3 / 2"
+              flexValue={4}
             />
           </div>
         </div>
