@@ -193,19 +193,22 @@ img {
 
 /* ============================================================
    PHOTO GRID — shoot page
-   3-column CSS grid where:
-     Landscape (4:3)  → .wide → span 2 columns
-     Portrait  (3:4)  → span 1 column
-     Square    (1:1)  → span 1 column
-   Photos render at their natural aspect ratio (no cropping).
-   2-col on tablet: landscape still fills full width.
-   1-col on mobile: everything full width.
+   Mixed shoots (portrait + landscape):
+     3-column grid, landscape (.wide) spans 2 cols, portrait spans 1.
+     Landscape containers have a forced 4:3 aspect-ratio so their
+     height matches adjacent portrait images — zero gap between rows.
+
+   Uniform shoots (all same aspect, e.g. all concert 4:3):
+     2-column grid, every photo spans 1 col — no empty slots.
+
+   Gap: 0 everywhere. Images are flush / touching.
    ============================================================ */
 
+/* Mixed: 3-col, landscape spans 2 */
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
+  gap: 0;
   align-items: start;
 }
 
@@ -213,20 +216,34 @@ img {
   grid-column: span 2;
 }
 
-/* Tablet: 2-col, landscape items span full width */
+/* Tablet */
 @media (max-width: 767px) {
   .photo-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Mobile: single column, span overrides irrelevant */
+/* Mobile */
 @media (max-width: 479px) {
   .photo-grid {
     grid-template-columns: 1fr;
   }
   .photo-grid-item.wide {
     grid-column: span 1;
+  }
+}
+
+/* Uniform: 2-col, all same aspect ratio (e.g. all landscape concert photos) */
+.photo-grid-uniform {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  align-items: start;
+}
+
+@media (max-width: 479px) {
+  .photo-grid-uniform {
+    grid-template-columns: 1fr;
   }
 }
 

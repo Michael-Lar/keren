@@ -25,11 +25,18 @@ interface PhotoGridProps {
 export default function PhotoGrid({ photos }: PhotoGridProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
+  // If every photo is the same aspect (e.g. all 4:3 concert shots), spanning
+  // makes no sense — a span-2 item in a 3-col grid would leave col 3 empty
+  // every row. Use a uniform 2-col grid for all-landscape, 3-col otherwise.
+  const allSameAspect = photos.every((p) => p.aspect === photos[0]?.aspect);
+  const isUniformLandscape = allSameAspect && photos[0]?.aspect === "4:3";
+  const gridClass = isUniformLandscape ? "photo-grid-uniform" : "photo-grid";
+
   return (
     <>
-      <div className="photo-grid" style={{ padding: "2rem 0 6rem" }}>
+      <div className={gridClass} style={{ padding: "2rem 0 6rem" }}>
         {photos.map((photo, index) => {
-          const isWide = photo.aspect === "4:3";
+          const isWide = !isUniformLandscape && photo.aspect === "4:3";
           return (
             <div
               key={index}
@@ -38,9 +45,11 @@ export default function PhotoGrid({ photos }: PhotoGridProps) {
               data-cursor-hover="true"
               style={{
                 cursor: "pointer",
-                backgroundColor: "var(--charcoal)",
                 overflow: "hidden",
                 animationDelay: `${Math.min(index * 0.04, 0.4)}s`,
+                // Landscape items get a forced aspect-ratio container so
+                // their height matches portrait neighbours — zero gap.
+                ...(isWide ? { aspectRatio: "4/3" } : {}),
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -50,8 +59,12 @@ export default function PhotoGrid({ photos }: PhotoGridProps) {
                 loading={index < 5 ? "eager" : "lazy"}
                 style={{
                   width: "100%",
-                  height: "auto",
                   display: "block",
+                  // Landscape images fill their fixed-ratio container (cover).
+                  // Portrait/square images render at natural height (no crop).
+                  ...(isWide
+                    ? { height: "100%", objectFit: "cover" }
+                    : { height: "auto" }),
                 }}
               />
             </div>
