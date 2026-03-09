@@ -113,11 +113,11 @@ export default function PhotoGrid({ photos }: PhotoGridProps) {
 
   return (
     <>
-      <div style={{ padding: "0.5rem 0 3rem" }}>
+      <div style={{ padding: "0.5rem 0 3rem", display: "flex", flexDirection: "column" }}>
         {indexedRows.map((row, rowIdx) => (
           <div
             key={rowIdx}
-            style={{ display: "flex" }}
+            style={{ display: "flex", lineHeight: 0, fontSize: 0 }}
           >
             {row.map(({ photo, index }) => (
               <div
