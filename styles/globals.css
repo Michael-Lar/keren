@@ -167,33 +167,13 @@ img {
   }
 }
 
-/* Digital page — viewport-height puzzle layout.
-   On desktop the entire page (heading + puzzle) fits in one screen.
-   Each column uses flex proportions (4+9=13) matching 3:2 and 2:3 ratios.
-   On mobile the columns stack and scroll naturally. */
-
-.digital-page {
-  background-color: var(--black);
-  min-height: 100svh;
-  padding-top: 8rem;
-  display: flex;
-  flex-direction: column;
-}
-
-@media (min-width: 768px) {
-  .digital-page {
-    height: 100svh;
-    min-height: unset;
-    padding-bottom: 0;
-  }
-}
+/* Digital page — two-column puzzle, zero gaps.
+   Portrait tiles use 3:4 (not 2:3) — less tall, both tiles visible on screen. */
 
 .digital-puzzle {
   display: flex;
   flex-direction: column;
   gap: 0;
-  flex: 1;
-  min-height: 0;
 }
 
 @media (min-width: 768px) {
@@ -208,14 +188,6 @@ img {
   gap: 0;
   flex: 1;
   min-width: 0;
-  min-height: 0;
-}
-
-/* Mobile: each tile gets a natural min-height so they're not too small */
-@media (max-width: 767px) {
-  .digital-col > div {
-    min-height: 220px;
-  }
 }
 
 /* ============================================================
