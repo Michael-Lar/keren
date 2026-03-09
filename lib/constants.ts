@@ -9,5 +9,4 @@ export const Z = {
   navOverlay: 999,
   grain: 9998,
   lightbox: 9999,
-  cursor: 99999,
 } as const;
